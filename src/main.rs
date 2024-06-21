@@ -21,6 +21,9 @@ struct Atendente;
 struct Cozinheiro;
 
 #[derive(Component)]
+struct Cliente;
+
+#[derive(Component)]
 struct Recepcao
 {   
     aberta: bool,
@@ -31,7 +34,7 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_systems(Startup, iniciar_restaurante)
-        .add_systems(Update, eventos_recepcao)
+        .add_systems(Update, (eventos_recepcao, count_clientes))
         .run();
 }
 
@@ -43,14 +46,18 @@ fn iniciar_restaurante(mut commands: Commands) {
     commands.spawn(Recepcao {aberta: false, timer: Timer::from_seconds(3., TimerMode::Once)});
 }
 
-fn eventos_recepcao(mut query: Query<&mut Recepcao>, time: Res<Time>) {
+fn eventos_recepcao(mut query: Query<&mut Recepcao>, mut commands: Commands, time: Res<Time>) {
     let mut rng = thread_rng();
     for mut recepcao in &mut query {
         recepcao.timer.tick(time.delta());
         if recepcao.timer.finished() {
-            println!("Recepção aberta");
             recepcao.aberta = true;
+            commands.spawn(Cliente);
             recepcao.timer = Timer::from_seconds(rng.gen::<f32>() * 5., TimerMode::Once)
         }
     }
+}
+
+fn count_clientes(query: Query<&Cliente>) {
+    println!("Número de clientes: {}", query.iter().count());
 }
