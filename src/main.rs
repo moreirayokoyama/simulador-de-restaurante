@@ -1,9 +1,9 @@
 use bevy::app::{App, Startup, Update};
 use bevy::ecs::component::Component;
 use bevy::prelude::{Commands, Query, Res};
+use bevy::time::Time;
 use bevy::time::{Timer, TimerMode};
 use bevy::DefaultPlugins;
-use bevy::time::Time;
 use rand::{thread_rng, Rng};
 
 #[derive(Component)]
@@ -21,11 +21,12 @@ struct Atendente;
 struct Cozinheiro;
 
 #[derive(Component)]
-struct Cliente;
+struct Cliente {
+    atendido: bool,
+}
 
 #[derive(Component)]
-struct Recepcao
-{   
+struct Recepcao {
     aberta: bool,
     timer: Timer,
 }
@@ -43,7 +44,10 @@ fn iniciar_restaurante(mut commands: Commands) {
     commands.spawn((Funcionario { esta_livre: true }, Atendente));
     commands.spawn((Funcionario { esta_livre: true }, Cozinheiro));
     commands.spawn((Funcionario { esta_livre: true }, Cozinheiro));
-    commands.spawn(Recepcao {aberta: false, timer: Timer::from_seconds(3., TimerMode::Once)});
+    commands.spawn(Recepcao {
+        aberta: false,
+        timer: Timer::from_seconds(3., TimerMode::Once),
+    });
 }
 
 fn eventos_recepcao(mut query: Query<&mut Recepcao>, mut commands: Commands, time: Res<Time>) {
@@ -52,7 +56,7 @@ fn eventos_recepcao(mut query: Query<&mut Recepcao>, mut commands: Commands, tim
         recepcao.timer.tick(time.delta());
         if recepcao.timer.finished() {
             recepcao.aberta = true;
-            commands.spawn(Cliente);
+            commands.spawn(Cliente { atendido: false });
             recepcao.timer = Timer::from_seconds(rng.gen::<f32>() * 5., TimerMode::Once)
         }
     }
