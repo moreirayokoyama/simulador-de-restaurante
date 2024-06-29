@@ -4,4 +4,3 @@ use bevy::prelude::Component;
 pub struct Cliente {
     pub(crate) atendido: bool,
 }
-

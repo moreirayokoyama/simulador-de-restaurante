@@ -1,4 +1,8 @@
-use bevy::{app::{Plugin, Update}, prelude::{Commands, Component, Query, Res}, time::{Time, Timer, TimerMode}};
+use bevy::{
+    app::{Plugin, Update},
+    prelude::{Commands, Component, Query, Res},
+    time::{Time, Timer, TimerMode},
+};
 use rand::{thread_rng, Rng};
 
 use crate::cliente::Cliente;
