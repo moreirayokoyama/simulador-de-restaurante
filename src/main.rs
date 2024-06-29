@@ -1,5 +1,6 @@
-use bevy::app::App;
+use bevy::app::{App, Update};
 use bevy::ecs::component::Component;
+use bevy::prelude::Query;
 use bevy::DefaultPlugins;
 use recepcao::RecepcaoPlugin;
 use recepcionista::RecepcionistaPlugin;
@@ -29,5 +30,12 @@ fn main() {
             RecepcaoPlugin,
             RestaurantePlugin,
         ))
+        .add_systems(Update, debug)
         .run();
+}
+
+fn debug(query: Query<&Mesa>) {
+    for mesa in &query {
+        println!("Mesa ocupada: {}", mesa.ocupada);
+    }
 }
