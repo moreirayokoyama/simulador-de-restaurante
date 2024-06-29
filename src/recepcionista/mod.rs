@@ -38,10 +38,10 @@ fn receber_clientes(
     }
 }
 
-fn recepcao_cliente(mut query_mesa: Query<(Entity, &mut Mesa)>, mut query: Query<(Entity, &mut Funcionario, &Recepcionista, &Children)>, query_clientes: Query<&Cliente>, mut commands: Commands) {
+fn recepcao_cliente(mut query_mesa: Query<(Entity, &mut Mesa)>, mut query: Query<(Entity, &mut Funcionario, &Recepcionista, &Children)>, mut commands: Commands) {
     for (entidade_mesa, mut mesa) in &mut query_mesa {
         if !mesa.ocupada {
-            for (entidade_recepcionista, mut funcionario, recepcionista, children) in &mut query {
+            for (entidade_recepcionista, mut funcionario, _, children) in &mut query {
                 if !funcionario.esta_livre {
                     for &child in children {
                         commands.entity(entidade_recepcionista).remove_children(&[child]);
