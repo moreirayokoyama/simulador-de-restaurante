@@ -8,10 +8,10 @@ use recepcionista::RecepcionistaPlugin;
 use restaurante::RestaurantePlugin;
 
 mod cliente;
+mod mesa;
 mod recepcao;
 mod recepcionista;
 mod restaurante;
-mod mesa;
 
 #[derive(Component)]
 struct Atendente;
@@ -26,7 +26,7 @@ fn main() {
             RecepcionistaPlugin,
             RecepcaoPlugin,
             RestaurantePlugin,
-            MesaPlugin
+            MesaPlugin,
         ))
         .add_systems(Update, debug)
         .run();

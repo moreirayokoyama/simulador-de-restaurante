@@ -4,8 +4,8 @@ use bevy::{
     prelude::{Commands, Component, Entity, Query},
 };
 
-use crate::{cliente::Cliente, restaurante::Funcionario};
 use crate::mesa::Mesa;
+use crate::{cliente::Cliente, restaurante::Funcionario};
 
 pub struct RecepcionistaPlugin;
 
@@ -39,13 +39,19 @@ fn receber_clientes(
     }
 }
 
-fn recepcao_cliente(mut query_mesa: Query<(Entity, &mut Mesa)>, mut query: Query<(Entity, &mut Funcionario, &Recepcionista, &Children)>, mut commands: Commands) {
+fn recepcao_cliente(
+    mut query_mesa: Query<(Entity, &mut Mesa)>,
+    mut query: Query<(Entity, &mut Funcionario, &Recepcionista, &Children)>,
+    mut commands: Commands,
+) {
     for (entidade_mesa, mut mesa) in &mut query_mesa {
         if !mesa.ocupada {
             for (entidade_recepcionista, mut funcionario, _, children) in &mut query {
                 if !funcionario.esta_livre {
                     for &child in children {
-                        commands.entity(entidade_recepcionista).remove_children(&[child]);
+                        commands
+                            .entity(entidade_recepcionista)
+                            .remove_children(&[child]);
                         funcionario.esta_livre = true;
                         commands.entity(entidade_mesa).push_children(&[child]);
                         mesa.ocupada = true;

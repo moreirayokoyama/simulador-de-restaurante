@@ -1,4 +1,9 @@
-use bevy::{app::{Plugin, Update}, prelude::{Component, Query}};
+use bevy::{
+    app::{Plugin, Update},
+    prelude::{Component, EventWriter, Query},
+};
+
+use crate::restaurante::NovoPedidoEvent;
 
 #[derive(Component, Default)]
 pub struct Mesa {
@@ -14,10 +19,11 @@ impl Plugin for MesaPlugin {
     }
 }
 
-fn criar_pedidos(mut query: Query<&mut Mesa>) {
+fn criar_pedidos(mut query: Query<&mut Mesa>, mut novo_pedido: EventWriter<NovoPedidoEvent>) {
     for mut mesa in &mut query {
         if mesa.ocupada && !mesa.pediu {
             mesa.pediu = true;
+            novo_pedido.send_default();
         }
     }
 }
