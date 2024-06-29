@@ -4,7 +4,8 @@ use bevy::{
     time::{Timer, TimerMode},
 };
 
-use crate::{recepcao::Recepcao, recepcionista::Recepcionista, Atendente, Cozinheiro, Mesa};
+use crate::{recepcao::Recepcao, recepcionista::Recepcionista, Atendente, Cozinheiro};
+use crate::mesa::Mesa;
 
 #[derive(Component)]
 pub struct Funcionario {

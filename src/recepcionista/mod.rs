@@ -4,7 +4,8 @@ use bevy::{
     prelude::{Commands, Component, Entity, Query},
 };
 
-use crate::{cliente::Cliente, restaurante::Funcionario, Mesa};
+use crate::{cliente::Cliente, restaurante::Funcionario};
+use crate::mesa::Mesa;
 
 pub struct RecepcionistaPlugin;
 
