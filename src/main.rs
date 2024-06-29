@@ -2,7 +2,7 @@ use bevy::app::{App, Update};
 use bevy::ecs::component::Component;
 use bevy::prelude::Query;
 use bevy::DefaultPlugins;
-use mesa::Mesa;
+use mesa::{Mesa, MesaPlugin};
 use recepcao::RecepcaoPlugin;
 use recepcionista::RecepcionistaPlugin;
 use restaurante::RestaurantePlugin;
@@ -26,6 +26,7 @@ fn main() {
             RecepcionistaPlugin,
             RecepcaoPlugin,
             RestaurantePlugin,
+            MesaPlugin
         ))
         .add_systems(Update, debug)
         .run();
@@ -33,6 +34,6 @@ fn main() {
 
 fn debug(query: Query<&Mesa>) {
     for mesa in &query {
-        println!("Mesa ocupada: {}", mesa.ocupada);
+        println!("Mesa ocupada: {} e Pediu: {}", mesa.ocupada, mesa.pediu);
     }
 }

@@ -19,12 +19,12 @@ fn iniciar_restaurante(mut commands: Commands) {
     commands.spawn((Funcionario { esta_livre: true }, Cozinheiro));
     commands.spawn(Recepcao {
         aberta: false,
-        timer: Timer::from_seconds(3., TimerMode::Once),
-    });
-    commands.spawn(Mesa { ocupada: false });
-    commands.spawn(Mesa { ocupada: false });
-    commands.spawn(Mesa { ocupada: false });
-    commands.spawn(Mesa { ocupada: false });
+        timer: Timer::from_seconds(3.,  TimerMode::Once),
+    }); 
+    commands.spawn(Mesa { ..Default::default() });
+    commands.spawn(Mesa { ..Default::default() });
+    commands.spawn(Mesa { ..Default::default() });
+    commands.spawn(Mesa { ..Default::default() });
 }
 
 pub struct RestaurantePlugin;
