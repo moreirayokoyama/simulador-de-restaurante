@@ -36,6 +36,15 @@ fn iniciar_restaurante(mut commands: Commands) {
     commands.spawn(Mesa {
         ..Default::default()
     });
+    commands.spawn(Mesa {
+        ..Default::default()
+    });
+    commands.spawn(Mesa {
+        ..Default::default()
+    });
+    commands.spawn(Mesa {
+        ..Default::default()
+    });
 }
 
 pub struct RestaurantePlugin;
