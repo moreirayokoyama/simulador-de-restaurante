@@ -1,6 +1,7 @@
 use bevy::app::{App, Update};
 use bevy::ecs::component::Component;
 use bevy::DefaultPlugins;
+use cliente::ClientePlugin;
 use cozinha::CozinhaPlugin;
 use mesa::MesaPlugin;
 use recepcao::RecepcaoPlugin;
@@ -29,6 +30,7 @@ fn main() {
             RestaurantePlugin,
             MesaPlugin,
             CozinhaPlugin,
+            ClientePlugin,
         ))
         .add_systems(Update, debug)
         .run();

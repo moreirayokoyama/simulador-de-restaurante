@@ -1,7 +1,4 @@
-use bevy::{
-    app::{Plugin, Update},
-    prelude::EventReader,
-};
+use bevy::{app::Plugin, prelude::Trigger};
 
 use crate::restaurante::NovoPedidoEvent;
 
@@ -9,14 +6,10 @@ pub struct CozinhaPlugin;
 
 impl Plugin for CozinhaPlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
-        app.add_systems(Update, receber_pedidos);
+        app.observe(on_novo_pedido);
     }
 }
 
-fn receber_pedidos(mut novos_pedidos: EventReader<NovoPedidoEvent>) {
-    if !novos_pedidos.is_empty() {
-        for _ in novos_pedidos.read() {
-            println!("Novo Pedido");
-        }
-    }
+fn on_novo_pedido(_: Trigger<NovoPedidoEvent>) {
+    println!("Novo Pedido");
 }

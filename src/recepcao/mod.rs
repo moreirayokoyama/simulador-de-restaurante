@@ -5,7 +5,7 @@ use bevy::{
 };
 use rand::{thread_rng, Rng};
 
-use crate::cliente::Cliente;
+use crate::restaurante::NovoClienteEvent;
 
 #[derive(Component)]
 pub struct Recepcao {
@@ -27,7 +27,7 @@ fn eventos_recepcao(mut query: Query<&mut Recepcao>, mut commands: Commands, tim
         recepcao.timer.tick(time.delta());
         if recepcao.timer.finished() {
             recepcao.aberta = true;
-            commands.spawn(Cliente { atendido: false });
+            commands.trigger(NovoClienteEvent {});
             recepcao.timer = Timer::from_seconds(rng.gen::<f32>() * 5., TimerMode::Once)
         }
     }

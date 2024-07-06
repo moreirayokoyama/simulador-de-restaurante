@@ -15,6 +15,9 @@ pub struct Funcionario {
 #[derive(Event, Default)]
 pub struct NovoPedidoEvent;
 
+#[derive(Event, Default)]
+pub struct NovoClienteEvent;
+
 fn iniciar_restaurante(mut commands: Commands) {
     commands.spawn((Funcionario { esta_livre: true }, Recepcionista));
     commands.spawn((Funcionario { esta_livre: true }, Atendente));
