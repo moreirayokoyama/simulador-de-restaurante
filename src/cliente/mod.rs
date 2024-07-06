@@ -3,11 +3,11 @@ use bevy::{
     prelude::{Commands, Component, Trigger},
 };
 
-use crate::restaurante::NovoClienteEvent;
+use crate::restaurante::{ClienteChegouEvent, NovoClienteEvent};
 
 #[derive(Component)]
 pub struct Cliente {
-    pub(crate) atendido: bool,
+    pub atendido: bool,
 }
 
 pub struct ClientePlugin;
@@ -19,5 +19,8 @@ impl Plugin for ClientePlugin {
 }
 
 fn on_novo_cliente(_: Trigger<NovoClienteEvent>, mut commands: Commands) {
-    commands.spawn(Cliente { atendido: false });
+    let cliente_entity = commands.spawn(Cliente { atendido: false }).id();
+    commands.trigger(ClienteChegouEvent {
+        cliente: cliente_entity,
+    })
 }
