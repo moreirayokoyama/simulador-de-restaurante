@@ -49,8 +49,9 @@ fn recepcao_cliente(
     query_mesa: Query<(Entity, &Mesa), Without<MesaOcupada>>,
     mut commands: Commands,
 ) {
-    for (entidade_mesa, _) in query_mesa.iter() {
-        for (entidade_recepcionista, mut funcionario, _, recebendo_cliente) in &mut query {
+    let mut mesa_iter = query_mesa.iter();
+    for (entidade_recepcionista, mut funcionario, _, recebendo_cliente) in &mut query {
+        if let Some((entidade_mesa, _)) = mesa_iter.next() {
             commands
                 .entity(entidade_recepcionista)
                 .remove::<RecebendoCliente>();
@@ -61,6 +62,8 @@ fn recepcao_cliente(
                 },
                 entidade_mesa,
             );
+        } else {
+            return;
         }
     }
 }

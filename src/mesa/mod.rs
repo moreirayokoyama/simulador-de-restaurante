@@ -21,11 +21,11 @@ impl Plugin for MesaPlugin {
     }
 }
 
-fn criar_pedidos(mut query: Query<&mut Mesa, With<MesaOcupada>>, mut commands: Commands) {
-    for mut mesa in &mut query {
+fn criar_pedidos(mut query: Query<(Entity, &mut Mesa), With<MesaOcupada>>, mut commands: Commands) {
+    for (entity, mut mesa) in &mut query {
         if !mesa.pediu {
             mesa.pediu = true;
-            commands.trigger(NovoPedidoEvent {})
+            commands.trigger(NovoPedidoEvent {mesa: entity})
         }
     }
 }
@@ -44,3 +44,5 @@ fn on_cliente_acomodado(trigger: Trigger<ClienteAcomodado>, mut commands: Comman
         .entity(trigger.entity())
         .insert(MesaOcupada(cliente));
 }
+
+

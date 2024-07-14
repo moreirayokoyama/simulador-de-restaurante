@@ -4,16 +4,18 @@ use bevy::{
     time::{Timer, TimerMode},
 };
 
-use crate::mesa::criar_mesa;
-use crate::{recepcao::Recepcao, recepcionista::Recepcionista, Atendente, Cozinheiro};
+use crate::{atendente::Atendente, mesa::criar_mesa};
+use crate::{recepcao::Recepcao, recepcionista::Recepcionista, Cozinheiro};
 
 #[derive(Component)]
 pub struct Funcionario {
     pub esta_livre: bool,
 }
 
-#[derive(Event, Default)]
-pub struct NovoPedidoEvent;
+#[derive(Event)]
+pub struct NovoPedidoEvent{
+    pub mesa: Entity,
+}
 
 #[derive(Event, Default)]
 pub struct NovoClienteEvent;

@@ -20,7 +20,9 @@ impl Plugin for ClientePlugin {
 
 fn on_novo_cliente(_: Trigger<NovoClienteEvent>, mut commands: Commands) {
     let cliente_entity = commands.spawn(Cliente { atendido: false }).id();
+    println!("Criando novo cliente!");
     commands.trigger(ClienteChegouEvent {
         cliente: cliente_entity,
-    })
+    });
+    println!("Cliente criado Chegou!");
 }

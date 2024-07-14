@@ -12,11 +12,12 @@ mod cliente;
 mod cozinha;
 mod mesa;
 mod recepcao;
-mod recepcionista;
-mod restaurante;
 
-#[derive(Component)]
-struct Atendente;
+//módulos de funcionários
+mod recepcionista;
+mod atendente;
+
+mod restaurante;
 
 #[derive(Component)]
 struct Cozinheiro;
